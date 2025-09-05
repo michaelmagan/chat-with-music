@@ -13,6 +13,6 @@ export async function searchMusic({ query }: SearchMusicInput): Promise<Song[]> 
     ...item,
     artist: item.artist?.name || "",
     album: item.album?.title || "",
-    albumCover: item.album?.cover || undefined
+    albumCover: item.album?.cover || ""
   }));
 }

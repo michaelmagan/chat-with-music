@@ -70,7 +70,7 @@ export function MusicCard({
           </button>
           <div className="p-4 flex items-center gap-4">
             <img
-              src={albumCover}
+              src={albumCover || undefined}
               alt={album}
               className="w-32 h-32 rounded-md object-cover ring-1 ring-gray-600"
             />
