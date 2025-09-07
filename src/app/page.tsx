@@ -20,40 +20,49 @@ export default function Home() {
       >
         <TamboMcpProvider mcpServers={mcpServers}>
           <div className="h-full w-full flex overflow-hidden">
-            <div className="w-[520px] min-w-[380px] max-w-lg h-full border-r overflow-auto">
-              <SimpleMusicPlayer 
-                tracks={[
-                  {
-                    title: "SoundHelix Song 1",
-                    artist: "SoundHelix",
-                    album: "Demo Album",
-                    duration: 30,
-                    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                    link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                    albumCover: "https://picsum.photos/seed/1/256",
-                  },
-                  {
-                    title: "SoundHelix Song 2",
-                    artist: "SoundHelix",
-                    album: "Demo Album", 
-                    duration: 30,
-                    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                    link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                    albumCover: "https://picsum.photos/seed/2/256",
-                  },
-                  {
-                    title: "SoundHelix Song 3",
-                    artist: "SoundHelix", 
-                    album: "Demo Album",
-                    duration: 30,
-                    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                    link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                    albumCover: "https://picsum.photos/seed/3/256",
-                  },
-                ]}
-                currentIndex={0}
-                isPlaying={false}
-              />
+            <div className="w-[520px] min-w-[380px] max-w-lg h-full border-r overflow-auto flex flex-col">
+              <div className="flex-1">
+                <SimpleMusicPlayer 
+                  tracks={[
+                    {
+                      title: "SoundHelix Song 1",
+                      artist: "SoundHelix",
+                      album: "Demo Album",
+                      duration: 30,
+                      preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                      link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                      albumCover: "https://picsum.photos/seed/1/256",
+                    },
+                    {
+                      title: "SoundHelix Song 2",
+                      artist: "SoundHelix",
+                      album: "Demo Album", 
+                      duration: 30,
+                      preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                      link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                      albumCover: "https://picsum.photos/seed/2/256",
+                    },
+                    {
+                      title: "SoundHelix Song 3",
+                      artist: "SoundHelix", 
+                      album: "Demo Album",
+                      duration: 30,
+                      preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                      link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                      albumCover: "https://picsum.photos/seed/3/256",
+                    },
+                  ]}
+                  currentIndex={0}
+                  isPlaying={false}
+                />
+              </div>
+              
+              {/* Bottom CTA centered in panel */}
+              <div className="p-4 flex justify-center">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  build with ♥️ & <a href="https://tambo.co" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">tambo-ai</a>
+                </p>
+              </div>
             </div>
 
             <div className="flex-1 min-w-0 h-full">
