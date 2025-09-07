@@ -4,6 +4,8 @@ Talk to your music player like you would to a friend: "Find some jazz music" or 
 
 ## Demo
 
+https://github.com/user-attachments/assets/570e101f-93f6-4d8b-a248-b93fa7b39d2d
+
 ## Live Demo (try it out!)
 
 https://my-music-player-phi-six.vercel.app/
