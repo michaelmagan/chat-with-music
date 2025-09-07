@@ -280,120 +280,122 @@ function SimpleMusicPlayerBase({
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-white rounded-lg border">
-      {/* Current Track Display */}
-      {currentTrack ? (
-        <div className="mb-6">
-          <div className="flex items-center space-x-4 mb-4">
-            {currentTrack.albumCover && (
-              <img
-                src={currentTrack.albumCover}
-                alt={currentTrack.album}
-                className="w-16 h-16 rounded object-cover"
+    <div className="h-full flex flex-col">
+      {/* Fixed Current Track Display */}
+      <div className="flex-shrink-0 p-4 bg-card">
+        {currentTrack ? (
+          <div>
+            <div className="flex items-center space-x-4 mb-4">
+              {currentTrack.albumCover && (
+                <img
+                  src={currentTrack.albumCover}
+                  alt={currentTrack.album}
+                  className="w-16 h-16 rounded object-cover"
+                />
+              )}
+              <div className="flex-1 min-w-0">
+                <h2 className="font-bold text-lg text-foreground truncate">{currentTrack.title}</h2>
+                <p className="text-muted-foreground truncate">{currentTrack.artist}</p>
+                <p className="text-sm text-muted-foreground/70 truncate">{currentTrack.album}</p>
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-full bg-muted rounded-full h-2 mb-4">
+              <div
+                className="bg-primary h-2 rounded-full transition-all duration-100"
+                style={{ width: `${(currentTime / duration) * 100}%` }}
               />
-            )}
-            <div className="flex-1">
-              <h2 className="font-bold text-lg">{currentTrack.title}</h2>
-              <p className="text-gray-600">{currentTrack.artist}</p>
-              <p className="text-sm text-gray-500">{currentTrack.album}</p>
+            </div>
+
+            <div className="flex justify-between text-sm text-muted-foreground mb-4">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+
+            {/* Controls */}
+            <div className="flex justify-center items-center space-x-4">
+              <button
+                onClick={handlePrevious}
+                className="p-2 rounded-full hover:bg-accent transition-colors duration-200 text-foreground disabled:text-muted-foreground disabled:hover:bg-transparent"
+                disabled={tracks.length === 0}
+              >
+                <SkipBack className="w-5 h-5" />
+              </button>
+
+              <button
+                onClick={handlePlay}
+                className="p-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors duration-200 disabled:bg-muted disabled:text-muted-foreground"
+                disabled={!currentTrack}
+              >
+                {isPlaying ? (
+                  <Pause className="w-6 h-6" />
+                ) : (
+                  <Play className="w-6 h-6" />
+                )}
+              </button>
+
+              <button
+                onClick={handleNext}
+                className="p-2 rounded-full hover:bg-accent transition-colors duration-200 text-foreground disabled:text-muted-foreground disabled:hover:bg-transparent"
+                disabled={tracks.length === 0}
+              >
+                <SkipForward className="w-5 h-5" />
+              </button>
             </div>
           </div>
-
-          {/* Progress bar */}
-          <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
-            <div
-              className="bg-blue-600 h-2 rounded-full transition-all duration-100"
-              style={{ width: `${(currentTime / duration) * 100}%` }}
-            />
+        ) : (
+          <div className="text-center py-8 text-muted-foreground">
+            <p>No tracks in playlist</p>
           </div>
+        )}
+      </div>
 
-          <div className="flex justify-between text-sm text-gray-500 mb-4">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
-          </div>
-
-          {/* Controls */}
-          <div className="flex justify-center items-center space-x-4">
-            <button
-              onClick={handlePrevious}
-              className="p-2 rounded-full hover:bg-gray-100"
-              disabled={tracks.length === 0}
-            >
-              <SkipBack className="w-5 h-5" />
-            </button>
-
-            <button
-              onClick={handlePlay}
-              className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700"
-              disabled={!currentTrack}
-            >
-              {isPlaying ? (
-                <Pause className="w-6 h-6" />
-              ) : (
-                <Play className="w-6 h-6" />
-              )}
-            </button>
-
-            <button
-              onClick={handleNext}
-              className="p-2 rounded-full hover:bg-gray-100"
-              disabled={tracks.length === 0}
-            >
-              <SkipForward className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="text-center py-8 text-gray-500">
-          <p>No tracks in playlist</p>
-        </div>
-      )}
-
-      {/* Playlist */}
-      <div className="border-t pt-4">
-        <div className="flex justify-between items-center mb-3">
-          <h3 className="font-semibold">Playlist ({tracks.length} tracks)</h3>
+      {/* Scrollable Playlist */}
+      <div className="flex-1 flex flex-col min-h-0 border-t border-border bg-card">
+        <div className="flex-shrink-0 flex justify-between items-center p-4 pb-2">
+          <h3 className="font-semibold text-foreground">Playlist ({tracks.length} tracks)</h3>
           {tracks.length > 0 && (
             <button
               onClick={handleClearPlaylist}
-              className="text-red-600 text-sm hover:text-red-700"
+              className="text-destructive text-sm hover:text-destructive/80 transition-colors duration-200"
             >
               Clear All
             </button>
           )}
         </div>
 
-        <div className="space-y-2 max-h-60 overflow-y-auto">
+        <div className="flex-1 space-y-2 overflow-y-auto px-4 pb-4">
           {tracks.map((track, index) => (
             <div
               key={`${track.title}-${index}`}
-              className={`flex items-center justify-between p-2 rounded ${
+              className={`flex items-center justify-between p-2 rounded-lg transition-colors duration-200 ${
                 index === currentIndex
-                  ? "bg-blue-50 border border-blue-200"
-                  : "hover:bg-gray-50"
+                  ? "bg-accent border border-border"
+                  : "hover:bg-accent/50"
               }`}
             >
               <div
-                className="flex items-center space-x-3 flex-1 cursor-pointer"
+                className="flex items-center space-x-3 flex-1 min-w-0 cursor-pointer"
                 onClick={() => handlePlayTrack(index)}
               >
                 {track.albumCover && (
                   <img
                     src={track.albumCover}
                     alt={track.album}
-                    className="w-8 h-8 rounded object-cover"
+                    className="w-8 h-8 rounded object-cover flex-shrink-0"
                   />
                 )}
                 <div className="min-w-0 flex-1">
-                  <div className="font-medium text-sm truncate">
+                  <div className="font-medium text-sm truncate text-foreground">
                     {track.title}
                   </div>
-                  <div className="text-xs text-gray-600 truncate">
+                  <div className="text-xs text-muted-foreground truncate">
                     {track.artist}
                   </div>
                 </div>
                 {index === currentIndex && isPlaying && (
-                  <span className="text-blue-600 text-xs">♪</span>
+                  <span className="text-primary text-xs flex-shrink-0">♪</span>
                 )}
               </div>
 
@@ -402,7 +404,7 @@ function SimpleMusicPlayerBase({
                   e.stopPropagation();
                   handleRemoveTrack(index);
                 }}
-                className="p-1 text-red-600 hover:text-red-700"
+                className="p-1 text-destructive hover:text-destructive/80 transition-colors duration-200 flex-shrink-0"
               >
                 <Trash2 className="w-4 h-4" />
               </button>

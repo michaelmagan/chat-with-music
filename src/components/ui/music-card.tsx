@@ -113,35 +113,35 @@ export function MusicCard({
   return (
     <div className="w-full max-w-full mx-auto p-3">
       <div className="relative">
-        <div className="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-800/60 backdrop-blur-xl">
+        <div className="relative rounded-xl overflow-hidden border border-border bg-card/60 backdrop-blur-xl">
           <button
             onClick={() => window.open(link, "_blank")}
-            className="absolute top-2 right-2 h-8 w-8 flex items-center justify-center rounded-full bg-gray-700/50 border border-gray-600"
+            className="absolute top-2 right-2 h-8 w-8 flex items-center justify-center rounded-full bg-muted/50 border border-border hover:bg-muted transition-colors duration-200"
           >
             <Icon
               d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-6 0L21 3"
               fill="none"
-              stroke="white"
+              stroke="currentColor"
               strokeWidth={1.5}
-              className="h-5 w-5"
+              className="h-5 w-5 text-foreground"
             />
           </button>
           <div className="p-4 flex items-center gap-4">
             <img
               src={albumCover || undefined}
               alt={album}
-              className="w-32 h-32 rounded-md object-cover ring-1 ring-gray-600"
+              className="w-32 h-32 rounded-md object-cover ring-1 ring-border"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="text-white text-2xl font-bold truncate">
+              <h2 className="text-foreground text-2xl font-bold truncate">
                 {title}
               </h2>
-              <div className="text-gray-300 font-medium truncate">{artist}</div>
-              <div className="text-gray-300 text-sm truncate">{album}</div>
+              <div className="text-muted-foreground font-medium truncate">{artist}</div>
+              <div className="text-muted-foreground text-sm truncate">{album}</div>
               <div className="flex items-center gap-3 mt-2">
                 <button
                   onClick={togglePlay}
-                  className="h-9 w-9 rounded-full border border-gray-600 bg-gray-700/50 flex items-center justify-center"
+                  className="h-9 w-9 rounded-full border border-border bg-muted/50 flex items-center justify-center hover:bg-muted transition-colors duration-200"
                 >
                   <Icon
                     d={
@@ -149,13 +149,13 @@ export function MusicCard({
                         ? "M6 5h4v14H6zM14 5h4v14h-4z"
                         : "M8 5v14l11-7-11-7z"
                     }
-                    className="text-white w-6 h-6"
+                    className="text-foreground w-6 h-6"
                   />
                 </button>
                 <div className="relative flex-1 h-2">
-                  <div className="absolute inset-0 rounded-full bg-gray-600 border border-gray-700" />
+                  <div className="absolute inset-0 rounded-full bg-muted border border-border" />
                   <div
-                    className="absolute left-0 top-0 h-2 rounded-full bg-white/60"
+                    className="absolute left-0 top-0 h-2 rounded-full bg-primary/80"
                     style={{ width: `${pct}%` }}
                   />
                   <input
@@ -171,7 +171,7 @@ export function MusicCard({
                     className="absolute inset-0 w-full opacity-0 cursor-pointer"
                   />
                 </div>
-                <span className="text-[11px] text-gray-300 font-mono">
+                <span className="text-[11px] text-muted-foreground font-mono">
                   {fmt(Math.floor(time))}
                 </span>
               </div>

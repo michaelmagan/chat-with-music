@@ -39,26 +39,26 @@ export function SongDisplay({
     small: {
       container: 'p-2',
       image: 'w-12 h-12',
-      title: 'text-sm font-medium',
-      artist: 'text-xs text-gray-600',
-      album: 'text-xs text-gray-500',
-      duration: 'text-xs text-gray-500',
+      title: 'text-sm font-medium text-foreground',
+      artist: 'text-xs text-muted-foreground',
+      album: 'text-xs text-muted-foreground/70',
+      duration: 'text-xs text-muted-foreground',
     },
     medium: {
       container: 'p-3',
       image: 'w-16 h-16',
-      title: 'text-base font-semibold',
-      artist: 'text-sm text-gray-600',
-      album: 'text-sm text-gray-500',
-      duration: 'text-sm text-gray-500',
+      title: 'text-base font-semibold text-foreground',
+      artist: 'text-sm text-muted-foreground',
+      album: 'text-sm text-muted-foreground/70',
+      duration: 'text-sm text-muted-foreground',
     },
     large: {
       container: 'p-4',
       image: 'w-20 h-20',
-      title: 'text-lg font-bold',
-      artist: 'text-base text-gray-600',
-      album: 'text-base text-gray-500',
-      duration: 'text-base text-gray-500',
+      title: 'text-lg font-bold text-foreground',
+      artist: 'text-base text-muted-foreground',
+      album: 'text-base text-muted-foreground/70',
+      duration: 'text-base text-muted-foreground',
     },
   };
 
@@ -66,7 +66,7 @@ export function SongDisplay({
 
   if (!songs || songs.length === 0) {
     return (
-      <div className="text-center text-gray-500 p-4">
+      <div className="text-center text-muted-foreground p-4">
         No songs to display
       </div>
     );
@@ -75,11 +75,11 @@ export function SongDisplay({
   return (
     <div className="space-y-2">
       {title && (
-        <h2 className="text-lg font-semibold text-gray-800 mb-3">{title}</h2>
+        <h2 className="text-lg font-semibold text-foreground mb-3">{title}</h2>
       )}
       
       {songs.map((song, index) => (
-        <div key={`${song.title}-${song.artist}-${index}`} className={`bg-white rounded-lg border hover:shadow-md transition-shadow ${styles.container}`}>
+        <div key={`${song.title}-${song.artist}-${index}`} className={`bg-card rounded-xl border border-border hover:shadow-md hover:bg-card/80 transition-all duration-200 ${styles.container}`}>
           <div className="flex items-center space-x-3">
             {/* Album Cover */}
             <div className={`${styles.image} flex-shrink-0`}>
@@ -90,8 +90,8 @@ export function SongDisplay({
                   className={`${styles.image} rounded object-cover`}
                 />
               ) : (
-                <div className={`${styles.image} rounded bg-gray-100 flex items-center justify-center`}>
-                  <Music className={`${size === 'small' ? 'w-6 h-6' : size === 'medium' ? 'w-8 h-8' : 'w-10 h-10'} text-gray-400`} />
+                <div className={`${styles.image} rounded bg-muted flex items-center justify-center`}>
+                  <Music className={`${size === 'small' ? 'w-6 h-6' : size === 'medium' ? 'w-8 h-8' : 'w-10 h-10'} text-muted-foreground`} />
                 </div>
               )}
             </div>
@@ -117,7 +117,7 @@ export function SongDisplay({
                       href={song.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
+                      className="p-1 text-muted-foreground hover:text-primary transition-colors duration-200"
                       title="Open in external player"
                     >
                       <ExternalLink className="w-4 h-4" />
