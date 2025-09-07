@@ -97,7 +97,11 @@ export function MusicCard({
       onPropsUpdate?.({ playing: true });
       return;
     }
-    isPlaying ? audio.pause() : await audio.play();
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      await audio.play();
+    }
     setIsPlaying(!isPlaying);
     onPropsUpdate?.({ playing: !isPlaying });
   };

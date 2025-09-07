@@ -4,7 +4,7 @@ import { useState } from "react";
 export const WelcomeCard = () => {
   const exampleMessage = "show me top 10 countries by population";
   const [isFilled, setIsFilled] = useState(false);
-  const { setValue } = useTamboThreadInput("tambo-template");
+  const { setValue } = useTamboThreadInput();
 
   const fillMessageInput = () => {
     setValue(exampleMessage);
