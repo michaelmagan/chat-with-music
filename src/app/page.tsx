@@ -41,8 +41,8 @@ export default function Home() {
           </div>
           
           <div className="flex-1 w-full flex overflow-hidden">
-            <div className="w-[520px] min-w-[380px] max-w-lg h-full border-r overflow-auto flex flex-col">
-              <div className="flex-1">
+            <div className="w-[520px] min-w-[380px] max-w-lg h-full border-r flex flex-col">
+              <div className="flex-1 min-h-0">
                 <SimpleMusicPlayer 
                   tracks={[
                     {
@@ -79,9 +79,9 @@ export default function Home() {
               </div>
               
               {/* Bottom CTA centered in panel */}
-              <div className="p-4 flex justify-center">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  build with ♥️ & <a href="https://tambo.co" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">tambo-ai</a>
+              <div className="flex-shrink-0 p-4 flex justify-center border-t border-border">
+                <p className="text-sm text-muted-foreground">
+                  built with ♥️ & <a href="https://tambo.co" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors duration-200">tambo-ai</a>
                 </p>
               </div>
             </div>
