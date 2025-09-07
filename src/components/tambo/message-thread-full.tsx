@@ -1,35 +1,28 @@
 "use client";
 
+import type { messageVariants } from "@/components/tambo/message";
 import {
   MessageInput,
-  MessageInputTextarea,
-  MessageInputToolbar,
-  MessageInputSubmitButton,
   MessageInputError,
   MessageInputMcpConfigButton,
+  MessageInputSubmitButton,
+  MessageInputTextarea,
+  MessageInputToolbar,
 } from "@/components/tambo/message-input";
 import {
   MessageSuggestions,
-  MessageSuggestionsStatus,
   MessageSuggestionsList,
+  MessageSuggestionsStatus,
 } from "@/components/tambo/message-suggestions";
-import type { messageVariants } from "@/components/tambo/message";
-import {
-  ThreadHistory,
-  ThreadHistoryHeader,
-  ThreadHistoryNewButton,
-  ThreadHistorySearch,
-  ThreadHistoryList,
-} from "@/components/tambo/thread-history";
-import {
-  ThreadContent,
-  ThreadContentMessages,
-} from "@/components/tambo/thread-content";
+import { ScrollableMessageContainer } from "@/components/tambo/scrollable-message-container";
 import {
   ThreadContainer,
   useThreadContainerContext,
 } from "@/components/tambo/thread-container";
-import { ScrollableMessageContainer } from "@/components/tambo/scrollable-message-container";
+import {
+  ThreadContent,
+  ThreadContentMessages,
+} from "@/components/tambo/thread-content";
 import { useMergedRef } from "@/lib/thread-hooks";
 import type { Suggestion } from "@tambo-ai/react";
 import type { VariantProps } from "class-variance-authority";
@@ -61,14 +54,7 @@ export const MessageThreadFull = React.forwardRef<
   const { containerRef, historyPosition } = useThreadContainerContext();
   const mergedRef = useMergedRef<HTMLDivElement | null>(ref, containerRef);
 
-  const threadHistorySidebar = (
-    <ThreadHistory contextKey={contextKey} position={historyPosition}>
-      <ThreadHistoryHeader />
-      <ThreadHistoryNewButton />
-      <ThreadHistorySearch />
-      <ThreadHistoryList />
-    </ThreadHistory>
-  );
+  const threadHistorySidebar = <></>;
 
   const defaultSuggestions: Suggestion[] = [
     {

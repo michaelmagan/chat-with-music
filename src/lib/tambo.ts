@@ -5,9 +5,9 @@
 
 import { TamboComponent, TamboTool } from "@tambo-ai/react";
 
-import { MusicCard } from "@/components/ui/music-card";
+import { searchMusicSchema } from "@/lib/types";
 import { searchMusic } from "@/services/music-search";
-import { songSchema, searchMusicSchema } from "@/lib/types";
+import { SongDisplay, songDisplaySchema } from "@/components/ui/SongDisplay";
 
 // Tambo tools registered for AI use.
 export const tools: TamboTool[] = [
@@ -23,9 +23,9 @@ export const tools: TamboTool[] = [
 // Tambo components registered for AI use.
 export const components: TamboComponent[] = [
   {
-    name: "MusicCard",
-    description: "A component that plays a song from Deezer.",
-    component: MusicCard,
-    propsSchema: songSchema,
+    name: "SongDisplay",
+    description: "Display an array of songs without playing them. Shows title, artist, album, duration, cover art for each song. Optional title header. Size options: small/medium/large. Can hide duration or external link.",
+    component: SongDisplay,
+    propsSchema: songDisplaySchema,
   },
 ];

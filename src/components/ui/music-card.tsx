@@ -1,11 +1,19 @@
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
-import { useState, useEffect, useRef } from "react";
 
 import { songSchema } from "@/lib/types";
-export type MusicCardProps = z.infer<typeof songSchema>;
+export type MusicCardProps = z.infer<typeof songSchema> & {
+  playing?: boolean;
+  onPropsUpdate?: (next: Partial<{ playing: boolean }>) => void;
+};
 
-const Icon = ({ d, ...props }: { d: string } & React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d={d} /></svg>
+const Icon = ({
+  d,
+  ...props
+}: { d: string } & React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d={d} />
+  </svg>
 );
 
 export function MusicCard({
@@ -15,6 +23,8 @@ export function MusicCard({
   preview,
   link,
   albumCover,
+  playing,
+  onPropsUpdate,
 }: MusicCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
@@ -38,6 +48,41 @@ export function MusicCard({
     }
   }, [isPlaying, audio]);
 
+  // Respond to external playing prop changes
+  useEffect(() => {
+    if (playing === undefined) return;
+    const ensureAudio = async () => {
+      if (!audio) {
+        const a = new Audio(preview);
+        a.onended = () => {
+          setIsPlaying(false);
+          setTime(0);
+          onPropsUpdate?.({ playing: false });
+        };
+        a.onloadedmetadata = () => setDuration(a.duration || 30);
+        setAudio(a);
+        if (playing) {
+          try {
+            await a.play();
+            setIsPlaying(true);
+          } catch {}
+        }
+        return;
+      }
+      if (playing && !isPlaying) {
+        try {
+          await audio.play();
+          setIsPlaying(true);
+        } catch {}
+      } else if (!playing && isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    };
+    void ensureAudio();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing, preview]);
+
   const togglePlay = async () => {
     if (!audio) {
       const a = new Audio(preview);
@@ -49,14 +94,17 @@ export function MusicCard({
       setAudio(a);
       await a.play();
       setIsPlaying(true);
+      onPropsUpdate?.({ playing: true });
       return;
     }
     isPlaying ? audio.pause() : await audio.play();
     setIsPlaying(!isPlaying);
+    onPropsUpdate?.({ playing: !isPlaying });
   };
 
   const pct = (time / duration) * 100;
-  const fmt = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
+  const fmt = (s: number) =>
+    `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
 
   return (
     <div className="w-full max-w-full mx-auto p-3">
@@ -66,7 +114,13 @@ export function MusicCard({
             onClick={() => window.open(link, "_blank")}
             className="absolute top-2 right-2 h-8 w-8 flex items-center justify-center rounded-full bg-gray-700/50 border border-gray-600"
           >
-            <Icon d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-6 0L21 3" fill="none" stroke="white" strokeWidth={1.5} className="h-5 w-5" />
+            <Icon
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-6 0L21 3"
+              fill="none"
+              stroke="white"
+              strokeWidth={1.5}
+              className="h-5 w-5"
+            />
           </button>
           <div className="p-4 flex items-center gap-4">
             <img
@@ -85,7 +139,14 @@ export function MusicCard({
                   onClick={togglePlay}
                   className="h-9 w-9 rounded-full border border-gray-600 bg-gray-700/50 flex items-center justify-center"
                 >
-                  <Icon d={isPlaying ? "M6 5h4v14H6zM14 5h4v14h-4z" : "M8 5v14l11-7-11-7z"} className="text-white w-6 h-6" />
+                  <Icon
+                    d={
+                      isPlaying
+                        ? "M6 5h4v14H6zM14 5h4v14h-4z"
+                        : "M8 5v14l11-7-11-7z"
+                    }
+                    className="text-white w-6 h-6"
+                  />
                 </button>
                 <div className="relative flex-1 h-2">
                   <div className="absolute inset-0 rounded-full bg-gray-600 border border-gray-700" />
@@ -114,7 +175,10 @@ export function MusicCard({
           </div>
           <div
             className="pointer-events-none absolute -z-10 blur-[30px] opacity-20"
-            style={{ inset: "-20%", background: `radial-gradient(50% 50% at 20% 10%, rgba(255,255,255,0.1), transparent 60%), radial-gradient(60% 60% at 80% 90%, rgba(255,255,255,0.05), transparent 60%)` }}
+            style={{
+              inset: "-20%",
+              background: `radial-gradient(50% 50% at 20% 10%, rgba(255,255,255,0.1), transparent 60%), radial-gradient(60% 60% at 80% 90%, rgba(255,255,255,0.05), transparent 60%)`,
+            }}
           />
         </div>
         <div

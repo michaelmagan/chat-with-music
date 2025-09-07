@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
 import {
   useCanvasDetection,
-  usePositioning,
   useMergedRef,
+  usePositioning,
 } from "@/lib/thread-hooks";
+import { cn } from "@/lib/utils";
 import * as React from "react";
 import { useRef } from "react";
 
@@ -27,7 +27,7 @@ export const ThreadContainer = React.forwardRef<
   const { isLeftPanel, historyPosition } = usePositioning(
     className,
     canvasIsOnLeft,
-    hasCanvasSpace,
+    hasCanvasSpace
   );
   const mergedRef = useMergedRef<HTMLDivElement | null>(ref, containerRef);
 
@@ -60,7 +60,7 @@ export const ThreadContainer = React.forwardRef<
         !isLeftPanel && "ml-auto",
 
         // Custom classes passed via props
-        className,
+        className
       )}
       {...props}
     >
@@ -86,7 +86,7 @@ export function useThreadContainerContext() {
   const { isLeftPanel, historyPosition } = usePositioning(
     "",
     canvasIsOnLeft,
-    hasCanvasSpace,
+    hasCanvasSpace
   );
 
   return {
