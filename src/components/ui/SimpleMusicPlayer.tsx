@@ -117,9 +117,8 @@ function SimpleMusicPlayerBase({
         }
         return newTracks;
       });
-      // Don't clear immediately - let the AI manage the prop lifecycle
     }
-  }, [removeIndex, tracks.length, currentIndex, audio]);
+  }, [removeIndex]); // Only depend on removeIndex
 
   useEffect(() => {
     if (action) {
@@ -135,22 +134,18 @@ function SimpleMusicPlayerBase({
           break;
         case "next":
           if (tracks.length > 0) {
-            setCurrentIndex((currentIndex + 1) % tracks.length);
-            // Don't automatically start playing - keep current play state
+            setCurrentIndex((prev) => (prev + 1) % tracks.length);
           }
           break;
         case "previous":
           if (tracks.length > 0) {
-            setCurrentIndex((currentIndex - 1 + tracks.length) % tracks.length);
-            // Don't automatically start playing - keep current play state
+            setCurrentIndex((prev) => (prev - 1 + tracks.length) % tracks.length);
           }
           break;
       }
-      // Don't clear immediately - let the AI manage the prop lifecycle
     }
-  }, [action, tracks.length, currentIndex, audio]);
+  }, [action, tracks.length]); // Remove currentIndex from dependencies
 
-  // Handle replacePlaylist - replace entire playlist (including empty array to clear)
   useEffect(() => {
     if (replacePlaylist !== undefined) {
       console.log("Replace playlist with tracks:", replacePlaylist);
@@ -166,7 +161,7 @@ function SimpleMusicPlayerBase({
       setIsPlaying(false);
       setCurrentTime(0);
     }
-  }, [replacePlaylist]); // Remove audio from dependencies to prevent infinite loop
+  }, [replacePlaylist]); // Only depend on replacePlaylist
 
   const currentTrack = useMemo(
     () => tracks[currentIndex],
