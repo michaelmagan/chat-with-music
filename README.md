@@ -1,7 +1,36 @@
-# Alexa Chatbot with Tambo+Deezer
+# A Natural Language Interface for Listening to Music (Cursor for Spotify)
 
-Follow the tutorial [here](https://dev.to/jamesmurdza/making-an-alexa-chatbot-with-tambdeezer-2o01)!
+Talk to your music player like you would to a friend: "Find some jazz music" or "Show me songs by The Beatles". The AI understands context and searches the Deezer music catalog. It can update and manage your playlist as you go.
 
 ## Demo
 
-https://github.com/user-attachments/assets/c5f4c349-380d-420e-bcbc-44946c8b6e03
+## Live Demo (try it out!)
+
+https://my-music-player-phi-six.vercel.app/
+
+## How It Works
+
+This app demonstrates the power of **Tambo AI** for building conversational interfaces with dynamic UI generation.
+
+## Tech Stack
+
+- **Next.js 15** - React framework with App Router
+- **Tambo AI SDK** - Conversational AI with dynamic UI generation
+- **Deezer API** - Music search and streaming data
+- **Tailwind CSS** - Styling and responsive design
+- **TypeScript** - Type-safe development
+- **Zod** - Runtime schema validation
+
+## Run Locally
+
+```bash
+git clone https://github.com/michaelmagan/chat-with-music
+cd chat-with-music
+npm install
+npx tambo init
+npm run dev
+```
+
+## Notes
+
+Deezer API only allows 30s previews, so the music player will only play 30s previews.
