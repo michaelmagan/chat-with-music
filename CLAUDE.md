@@ -14,11 +14,12 @@ Always check the `@tambo-ai/react` package exports for the most up-to-date funct
 
 ```bash
 # Development
-npm run dev          # Start development server (localhost:3000)
-npm run build        # Build production bundle
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run lint:fix     # Run ESLint with auto-fix
+pnpm dev             # Start development server (localhost:3000)
+pnpm build           # Build production bundle
+pnpm start           # Start production server
+pnpm lint            # Run ESLint
+pnpm lint:fix        # Run ESLint with auto-fix
+pnpm install         # Install dependencies
 
 
 ## Architecture Overview
