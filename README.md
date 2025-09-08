@@ -3,8 +3,7 @@
 Talk to your music player like you would to a friend: "Find some jazz music" or "Show me songs by The Beatles". The AI understands context and searches the Deezer music catalog. It can update and manage your playlist as you go.
 
 ## Demo
-
-https://github.com/user-attachments/assets/570e101f-93f6-4d8b-a248-b93fa7b39d2d
+https://github.com/user-attachments/assets/7149c212-a383-4f1d-ba81-8e53fa30da43
 
 ## Live Demo (try it out!)
 
